@@ -1,0 +1,21 @@
+---
+layout: post
+title:  "ASP.NET MVC framework"
+date:   2011-03-17 23:49:30 +0100
+---
+
+MVC obrazac je prvi put opisan još 1979. godine. od strane [Trygve Reenskaug](http://en.wikipedia.org/wiki/Trygve_Reenskaug), međutim, negovoj popularnosti u razvoju web aplikacija najviše je doprineo [Ruby on Rails](http://en.wikipedia.org/wiki/Ruby_on_Rails). Iako je MVC obrazac bio poznat i ranije, prelomna tačka je bila negde sredinom 2004. godine kada je prezentovan Ruby on Rails framework. U ovom frameworku spojene su mogućnosti Ruby jezika i MVC obrazca kako bi se stvorilo nešto posebno.
+
+Ruby on Rails je definitivno jedan od najpopularnijih MVC frameworka za web, i on je zasnovan na dva osnovna principa: [Convention over configuration](http://en.wikipedia.org/wiki/Convention_over_configuration) i [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself) princip. Danas postoji veliki broj MVC frameworka u gotovo svim programskim jezicima, i svi oni su zasnovani na ova dva osnovna principa, pa tako i ASP.NET MVC.
+
+Osnovna ideja MVC obrazca je razdvajanje domenske logike (model - Model) i korisničkog interfejsa (pogled - View). Ova dva dela su indirektno povezana preko Publish-Subscribe mehanizma poznatog i kao [Observer](http://en.wikipedia.org/wiki/Observer_pattern) obrazac. Treći deo arhitekture predstavlja kontroler (Controller) koji implementira konkretnu strategiju ([Strategy](http://en.wikipedia.org/wiki/Strategy_pattern)) za pogled.
+
+Primena ovog obrazca ima smisla kada je pogled jednostavan i ne sadrži programski kod, kao što je to kod web aplikacija i HTML-a. Na ovaj način, pogled kreira korisnički interfejs, a kontroler obraduje korisničke akcije.
+
+Davne 2002. godine pojavio se .Net framework, a sa njim i ASP.NET. Do tada su desktop developeri koristili Visual Basic, a web developeri klasičan ASP. ASP je bio jednostavan skript jezik, dok je s druge strane VB imao kompletnije razvojno okruženje sa jednostavnim drag-and-drop konceptom kreiranja formi.
+
+S obzirom da je do tada Microsoft stvorio armiju VB developera, logicno je bilo za očekivati da ce se nacin razvoja desktop aplikacija preneti i na web aplikacije. Zbog toga je uz ASP.NET došao WebForms, koji je zasnovan na događajima i obezbeđuje isti način razvoja (drag-and-drop) kao i kod WinForms aplikacija.
+
+U WebForms je uloženo dosta truda kako bi se apstrahovao stateless medij kakav je web. Ovo je naravno imalo svoju cenu, ali se tada smatralo da je važnija produktivnost i vrlo strma kriva učenja. Vremenom je postalo jasno da ovakav princip razvoja nije pogodan za web aplikacije.
+
+ASP.NET MVC framework predstavlja implementaciju MVC obrazca za .Net jezike. Posle niza godina, Microsoft je uvideo da razvoj web apliakcija zasnovan na dogadajima nije prikladan za web, i da developeri žele više kontrole nad svojim kodom. Kao rezultat toga, pokrenut je open-source projekat razvoja ASP.NET MVC frameworka koji Microsoft vodi uz veliku pažnju šta programerska zajednica želi.

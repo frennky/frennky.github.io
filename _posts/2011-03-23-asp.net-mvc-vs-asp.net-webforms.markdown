@@ -1,0 +1,37 @@
+---
+layout: post
+title:  "ASP.NET MVC vs ASP.NET WebForms"
+date:   2011-03-23 22:11:30 +0100
+---
+
+ASP.NET MVC se pojavio u martu 2009. godine i većina članaka na temu ASP.NET MVC vs ASP.NET WebForms datira iz te godine. Međutim, ASP.NET MVC je prešao veliki put od tada i danas je dostupan u verziji 3.0. Mislim da će ovaj članak najviše koristiti onima koji tek počinju sa izučavanjem web tehnologija.
+
+## Prednosti ASP.NET WebForms-a
+
+Kada se govori o prednostima WebForms-a, ono što većina članaka ističe jeste da je to zrela tehnologija sa bogatim izborom serverskih kontrola. Ovo polako prestaje da bude prednost WebForms-a, jer je sve više kontrola/helpera za ASP.NET MVC. Kao primer, pomenuću [Telerik](http://www.telerik.com/products/aspnet-mvc.aspx)-ov odličan set ASP.NET MVC kontrola, koji ne samo da su istog kvaliteta kao i set kontrola za ASP.NET WebForms već su ove kontrole i besplatne.
+
+ViewState mehanizam se pominje i kao prednost i kao mana WebForms-a. Ovaj mehanizam je odgovoran za čuvanje stanja, u vidu skrivenih polja web strane, i prenos tog stanja između klijenta i servera. Međutim, u nekim slučajevima ViewState može da bude jako velik, kao npr. kod GridView kontrole. Naravno, ViewState sa može ograničiti ili isključiti, ali time uklanjamo mogućnost da kontrole imaju stanje.
+
+Pored ovog problema, ViewState može negativno da utiče na rangiranje stranice kod pretraživača. Neki pretraživači uzimaju u obzir koliko je neka ključna reč blizu početka stranice, a ViewState može da potisne ključnu reč niže.
+
+Zbog toga kako WebForms apstrahuje web development, developeri imaju manje kontrole nad HTML-om i načinom na koji klijent komunicira sa serverom. U današnje vreme, činjenica da WebForms apstrahuje HTTP i HTML više ne predstavlja prednost, jer otežava kompatibilnost sa različitim browser-ima kao i integraciju sa nekim od JavaScript frameworka.
+
+## Prednosti ASP.NET MVC frameworka
+
+ASP.NET MVC framework je zasnovan na MVC arhitekturnom obrascu, koji se pokazao kao pogodan za web aplikacije. Ovaj obrazac razdvaja aplikaciju na tri celine koje se mogu relativno nezavisno menjati, čime se podiže jednostavnost održavanja aplikacije.
+
+ASP.NET MVC je zamišljen tako da bude lak za testiranje i ovo je jedna od osobina MVC frameworka koja sve više dobija na značaju. Pored toga, postoji i ugrađena podrška za dobre prakse kao što su [Dipendency Injection](http://en.wikipedia.org/wiki/Dependency_injection).
+
+S obzirom da se ne koriste serverske kontrole, developeri imaju potpunu kontrolu nad HTML-om i jednostavnija je integracija sa frameworkom kao što je npr. [jQuery](http://jquery.com/). Bogati korisnički interfejs se može realizovati pomoću [jQuery UI](http://jqueryui.com/) frameworka.
+
+Sam framework je napravljen tako da postoji mnogo tačaka za proširenje i upotrebu alternativnih komponenti. ASP.NET MVC dolazi uz dva mehanizma za generisanje pogleda, ali podržava i upotrebu third party mehanizama za generisanje pogleda.
+
+U nekim člancima se pominje URL rutiranje kao prednost ASP.NET MVC frameworka u odnosu na WebForms. Ovo nije tačno, jer rutiranje ne predstavlja funkcionalnost MVC frameworka, već je to deo ASP.NET-a, što znači da se može koristiti i za WebFroms aplikacije.
+
+## Zaključak
+
+WebForms je zasnovan na događajima, što nam omogućava gotovo isti način razvoja kao i desktop aplikacija. Ovakav način razvoja je s razlogom odabran kako bi Visual Basic developeri mogli brzo i lako da pređu na web development. Više o ovome možete pročitati u članku [ASP.NET MVC framework](http://ivanfranjic.net/2011/3/asp-net-mvc-framework).
+
+S druge strane, MVC zamenjuje događaje sa akcijama kontrolera. Glavne prednosti MVC frameworka su jasna podela odgovornosti, lakše testiranje i veća kontrola nad HTML-om. Za razliku od WebForms-a, MVC ne koristi Viewstate, Postback niti serverske kontrole.
+
+Pre gotovo godinu i po dana, odlučio sam da počnem sa izučavanjem web tehnologija i tada sam se suočio sa izborom između ove dve tehnologije. Odabrao sam MVC, i dalje mislim da je to pravi izbor. Šta vi mislite? Šta ćete vi odabrati?
