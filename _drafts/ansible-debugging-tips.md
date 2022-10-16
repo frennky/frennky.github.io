@@ -6,23 +6,25 @@ date:   2020-07-21 19:39:30 +0100
 
 # Ansible debugging tips
 
+Use this post as a cheat sheet for Ansible debugging.
+
 First check python and ansible versions.
 
 ## Syntax
 
-```
+```bash
 ansible-playbook --syntax-check ...
 ```
 
 ## Dry run
 
-```
+```bash
 ansible-playbook --check ...
 ```
 
 ## Verbosity
 
-```
+```bash
 ansible-playbook -vvvv
 ```
 
@@ -108,7 +110,8 @@ enable_task_debugger = True
 ```
 
 Enable using environment variable:
-```
+
+```bash
 ANSIBLE_ENABLE_TASK_DEBUGGER=True ansible-playbook ...
 ```
 
@@ -150,6 +153,6 @@ Check if installed and check configuration file - .ansible-lint.
 |use_default_rules|Use default rules under 'ansible-lint/lib/ansiblelint/rules'|
 |verbosity|Verbosity level|
 
-```
+```bash
 ansible-lint ...
 ```

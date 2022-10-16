@@ -10,23 +10,18 @@ This is a series of posts covering some of essential commands/tools used by soft
 
 - curl
 - sed
-- git
 - cat
 - netstat/ss
 - dig
-- nc
 - ping
-- traceroute
 - ip
+- nc
 - nmap
 - ssh-keygen/...
-- top/htop
 - history
 - xargs
 - ps
 - free
-- which
-- whoami/id
 - sudo/su
 - time
 - date
@@ -36,13 +31,10 @@ This is a series of posts covering some of essential commands/tools used by soft
 - groupadd
 - useradd
 - passwd
-- reboot/shutdown
 - grep
 - tar/zip/unzip
 - chmod
 - chown
-- man
-- echo
 - less
 - up/uptime
 - ls
@@ -57,3 +49,12 @@ This is a series of posts covering some of essential commands/tools used by soft
 - jq
 - journalctl
 - systemctl
+- git
+
+- man
+- echo
+- top/htop
+- route
+- shutdown/reboot
+- which
+- whoami/id
