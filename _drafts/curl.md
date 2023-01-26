@@ -6,7 +6,7 @@ date:   2011-03-18 20:09:30 +0100
 
 # curl
 
-Curl has quite a list of options, but most of them are rarely used. Following is the list of most used options, not a long list, so easy to memorize:
+Curl has quite a list of options. Following is the list of oftem used options, not a long list, so easy to memorize:
 
 ```
 -d, --data <data>   HTTP POST data
