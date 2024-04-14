@@ -1,0 +1,52 @@
+baseURL: https://ivanfranjic.net/
+languageCode: en-us
+title: Ivan Franjic
+enableEmoji: true
+theme: PaperMod
+
+disableKinds:
+  - "taxonomy"
+  - "term"
+
+taxonomies:
+  tag: tags
+  category: categories
+
+menu:
+  main:
+    - identifier: archives
+      name: Archives
+      url: /archives
+
+permalinks:
+  page:
+    posts: /:year/:month/:day/:slug
+
+params:
+  title: Ivan Franjic
+  description: "Ivan Franjic Blog"
+  keywords: [Blog, Ivan Franjic]
+  author: Ivan Franjic
+  DateFormat: "2006-01-02"
+  defaultTheme: dark
+  showBreadCrumbs: true
+  showReadingTime: true
+  showCodeCopyButtons: true
+ 
+  homeInfoParams:
+    Title: "A long time ago, on a server far, far away :wave:"
+    Content: ... 
+  
+  socialIcons:
+    - name: "github"
+      url: "https://github.com/frennky"
+    - name: "linkedin"
+      url: "https://www.linkedin.com/in/ivanfranjic"
+    - name: "stackoverflow"
+      url: "https://stackoverflow.com/users/576752/frennky"
+  
+  # analytics:
+  #   google:
+  #     SiteVerificationTag: "XYZabc"
+  #   bing:
+  #     SiteVerificationTag: "XYZabc"
