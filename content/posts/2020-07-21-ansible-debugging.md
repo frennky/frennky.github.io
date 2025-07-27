@@ -31,8 +31,6 @@ Use check mode to simulate playbook execution without making any changes to your
 ansible-playbook --check <playbook.yml>
 ```
 
----
-
 ## Verbosity
 
 Add verbosity flags (`-v`, `-vv`, `-vvv`, `-vvvv`) to get more detailed output. The highest level (`-vvvv`) shows all communication between Ansible and remote hosts, which is invaluable for troubleshooting.
@@ -40,8 +38,6 @@ Add verbosity flags (`-v`, `-vv`, `-vvv`, `-vvvv`) to get more detailed output. 
 ```bash
 ansible-playbook -vvvv <playbook.yml>
 ```
-
----
 
 ## Debug module
 
