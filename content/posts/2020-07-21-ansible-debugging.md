@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Ansible Debugging"
+title:  "Ansible debugging"
 date:   2020-07-21 19:39:30 +0100
 ---
 
