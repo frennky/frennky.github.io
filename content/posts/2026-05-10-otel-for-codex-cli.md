@@ -3,7 +3,7 @@ title:  "OpenTelemetry for Codex CLI"
 date:   2026-05-10 19:37:00 +0100
 ---
 
-Codex CLI currently emits traces, logs with events and metrics. You can track API requests, tool invocations, token usage, MCP calls, across organization by exporting telemetry data through OpenTelemetry.
+Codex CLI can emit traces, metrics, OTel log records with event names and attributes. You can track API requests, tool invocations, token usage, MCP calls, across an organization by exporting telemetry data through OpenTelemetry.
 
 This article covers local setup for OpenTelemetry stack and Codex CLI configuration for OTel. It should help you explore the traces, logs and metrics, prepare some dashboards and find answers to questions like:
 - which models were used?
@@ -15,7 +15,7 @@ This article covers local setup for OpenTelemetry stack and Codex CLI configurat
 
 While Codex CLI emits traces, those are not fully documented and you currently can't find official list of trace span names.
 
-From captured traces I've notices following categories of spans:
+From captured traces I've noticed following categories of spans:
 - session lifecycle related (useful for knowing when turn begins and ends)
 - network and streaming related (useful to troubleshoot network vs model latency issues)
 - tool use (useful to see how often and which tools are used, as well as how long it takes)
@@ -30,14 +30,14 @@ Codex CLI logs are structured OTel events. As with traces, this is not fully doc
 
 From captured logs, I've noted some useful log events:
 - `codex.user_prompt` exposes fields such as `model` and `prompt`
-- `tool_result` exposes fields `tool_name`, `success`, `duration_ms` and others
-- `sse_event` with kind `response.completed` exposes `input_token_count`, `cached_token_count`, `output_token_count`, `reasoning_token_count` and `tool_token_count`
+- `codex.tool_result` exposes fields `tool_name`, `success`, `duration_ms` and others
+- `codex.sse_event` with kind `response.completed` exposes `input_token_count`, `cached_token_count`, `output_token_count`, `reasoning_token_count` and `tool_token_count`
 
 There are many use cases for collecting this data:
-- use `user_prompt` to reproduce a run or scan for sensitive data leaking
-- use `tool_result` to debug why tool run failed or was slow
-- use `sse_event` and `response.completed` for token usage
-- use `conversation_starts` and `tool_decision` to audit safety and approval behavior
+- use `codex.user_prompt` to reproduce a run or scan for sensitive data leaking
+- use `codex.tool_result` to debug why tool run failed or was slow
+- use `codex.sse_event` and `response.completed` for token usage
+- use `codex.conversation_starts` and `tool_decision` to audit safety and approval behavior
 
 ```
 # Loki query examples
@@ -47,7 +47,7 @@ There are many use cases for collecting this data:
 ```
 ## Metrics
 
-When it comes to mertics, you can find MCP, websocket and tool call related metrics (counter and histograms).
+When it comes to metrics, you can find MCP, websocket and tool call related metrics (counter and histograms).
 
 The most useful metrics I've found from my captures are:
 - token related metrics, which can be used to track cost
@@ -103,7 +103,7 @@ volumes:
   lgtm-data: {}
 ```
 
-The stack uses OTel collector which recieves OTLP traffic, Prometheus for metrics, Loki for logs, Tempo for traces and Grafana for exploring and dashboards.
+The stack uses OTel collector which receives OTLP traffic, Prometheus for metrics, Loki for logs, Tempo for traces and Grafana for exploring and dashboards.
 
 OTel collector configuration:
 
@@ -236,7 +236,7 @@ Alternatively, you can use CLI flags to pass OTel configuration:
 set -euo pipefail
 
 exec codex \
-  --config 'otel.environment=local-podman' \
+  --config 'otel.environment="local-podman"' \
   --config 'otel.log_user_prompt=true' \
   --config 'otel.exporter={ "otlp-grpc" = { endpoint = "http://127.0.0.1:4317" } }' \
   --config 'otel.metrics_exporter={ "otlp-grpc" = { endpoint = "http://127.0.0.1:4317" } }' \
