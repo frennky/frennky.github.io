@@ -3,30 +3,30 @@ title:  "OpenTelemetry for Codex CLI"
 date:   2026-05-10 19:37:00 +0100
 ---
 
-Codex CLI can emit traces, metrics, OTel log records with event names and attributes. You can track API requests, tool invocations, token usage, MCP calls, across an organization by exporting telemetry data through OpenTelemetry.
+Codex CLI can export traces, metrics, OTel log records with event names and attributes. With that telemetry, you can track API requests, tool invocations, token usage, MCP calls and run latency.
 
-This article covers local setup for OpenTelemetry stack and Codex CLI configuration for OTel. It should help you explore the traces, logs and metrics, prepare some dashboards and find answers to questions like:
-- which models were used?
-- how many tool calls were made?
-- was MCP used?
-- how long did the run take?
+This article walks through a local OpenTelemetry stack and Codex CLI configuration needed to send telemetry to it. The setup should help you explore the traces, logs and metrics, build dashboards and answer questions such as:
+- Which models were used?
+- How many tool calls were made?
+- Was MCP used?
+- How long did the run take?
 
 ## Traces
 
-While Codex CLI emits traces, those are not fully documented and you currently can't find official list of trace span names.
+While Codex CLI can export traces, its trace spans are not fully documented, and there is no official list of span names.
 
-From captured traces I've noticed following categories of spans:
+In captured traces, I saw these broad span categories:
 - session lifecycle related (useful for knowing when turn begins and ends)
 - network and streaming related (useful to troubleshoot network vs model latency issues)
 - tool use (useful to see how often and which tools are used, as well as how long it takes)
 - startup related (useful to troubleshoot first turn overhead that comes from auth, environment setup or model catalog lookups)
-- low level stuff (useful to Codex CLI developers for debugging internals)
+- low-level internal spans (useful to Codex CLI developers debugging runtime behavior)
 
-These traces could be used to identify highest contributors to latency.
+These traces help identify the largest contributors to end-to-end latency.
 
 ## Logs
 
-Codex CLI logs are structured OTel events. As with traces, this is not fully documented, there is no per-event payload schema.
+Codex CLI log telemetry is emitted as structured OTel log records. As with traces, the event payloads are not fully documented, and there is no stable per-event schema.
 
 From captured logs, I've noted some useful log events:
 - `codex.user_prompt` exposes fields such as `model` and `prompt`
@@ -34,10 +34,10 @@ From captured logs, I've noted some useful log events:
 - `codex.sse_event` with kind `response.completed` exposes `input_token_count`, `cached_token_count`, `output_token_count`, `reasoning_token_count` and `tool_token_count`
 
 There are many use cases for collecting this data:
-- use `codex.user_prompt` to reproduce a run or scan for sensitive data leaking
-- use `codex.tool_result` to debug why tool run failed or was slow
-- use `codex.sse_event` and `response.completed` for token usage
-- use `codex.conversation_starts` and `tool_decision` to audit safety and approval behavior
+- use `codex.user_prompt` to reproduce a run or check for accidental disclosure of sensitive data
+- use `codex.tool_result` to investigate failed or slow tool calls
+- use `codex.sse_event` and `response.completed` to inspect token usage
+- use `codex.conversation_starts` and `codex.tool_decision` to audit safety and approval behavior
 
 ```
 # Loki query examples
@@ -47,7 +47,7 @@ There are many use cases for collecting this data:
 ```
 ## Metrics
 
-When it comes to metrics, you can find MCP, websocket and tool call related metrics (counter and histograms).
+For metrics, Codex exposes counters and histograms for runtime activity such as API requests, streaming events, WebSocket request, tool calls, turn latency, token usage, and MCP activity.
 
 The most useful metrics I've found from my captures are:
 - token related metrics, which can be used to track cost
@@ -62,7 +62,7 @@ sum by (tool) (max_over_time(codex_tool_call_total[$__range]))
 
 ## Configuration
 
-To try this out you'll need OTel stack. If you don't have one or your own configuration, you can use following compose file.
+To try this locally, you need an OTel stack. If you do not already have one, the following Compose file starts Grafana LGTM with Prometheus, Loki, Tempo, Pyroscope, and an OTel Collector.
 
 ```
 name: otel
@@ -246,7 +246,7 @@ exec codex \
 
 ## Conclusion
 
-It's nice that Codex CLI supports OTel. However, expect some changes in future considering OTel semantic conventions for generative AI are still in development. Also, if you plan to use this in production, keep in mind that prompts can contain sensitive information, and consider keeping `log_user_prompt = false`.
+Codex CLI's OTel support is already useful for local debugging. Expect the details to evolve, especially while OTel semantic conventions for generative AI continue to mature. For production use, remember that prompts may contain sensitive information, so keep `log_user_prompt = false` unless you explicitly need raw prompt text.
 
 ## References
 
