@@ -54,7 +54,7 @@ The most useful metrics I've found from my captures are:
 - tool related metrics, which can be used to explain agent behavior
 - turn latency and MCP related metrics, which can be used to identify performance issues
 
-```
+```promql
 # PromQL examples
 sum(max_over_time(codex_turn_token_usage_sum{token_type="total"}[$__range]))
 sum by (tool) (max_over_time(codex_tool_call_total[$__range]))
@@ -64,7 +64,7 @@ sum by (tool) (max_over_time(codex_tool_call_total[$__range]))
 
 To try this locally, you need an OTel stack. If you do not already have one, the following Compose file starts Grafana LGTM with Prometheus, Loki, Tempo, Pyroscope, and an OTel Collector.
 
-```
+```yaml
 name: otel
 
 services:
@@ -107,7 +107,7 @@ The stack uses OTel collector which receives OTLP traffic, Prometheus for metric
 
 OTel collector configuration:
 
-```
+```yaml
 receivers:
   otlp:
     protocols:
@@ -189,7 +189,7 @@ service:
 
 Prometheus configuration:
 
-```
+```yaml
 global:
   scrape_interval: 5s
   evaluation_interval: 5s
@@ -219,7 +219,7 @@ scrape_configs:
 
 Now configure Codex CLI by editing configuration file `~/.codex/config.toml`:
 
-```
+```toml
 [otel]
 environment = "local-podman"
 log_user_prompt = true
@@ -231,7 +231,7 @@ trace_exporter = { otlp-grpc = { endpoint = "http://127.0.0.1:4317" } }
 Alternatively, you can use CLI flags to pass OTel configuration:
 
 
-```
+```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
