@@ -10,6 +10,6 @@ For more details on Hugo check [docs](https://gohugo.io/getting-started/quick-st
 go install github.com/gohugoio/hugo@latest
 git clone git@github.com:frennky/frennky.github.io.git
 cd frennky.github.io/
-git clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth=1
+git submodule update --init --recursive
 hugo server --disableFastRender
 ```
